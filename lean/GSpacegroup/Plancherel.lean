@@ -3,19 +3,6 @@
   ===========================
   Plancherel identity for finite groups with unitary representations.
 
-  Theorem: For a finite group G with a complete family of irreducible
-  unitary representations {rho_alpha}, and any f : G -> C,
-
-    sum_{alpha} d_alpha * ||f_hat(alpha)||_F^2 = |G| * ||f||_2^2
-
-  where f_hat(alpha) = sum_g f(g) * rho_alpha(g)^H is the Fourier
-  coefficient and d_alpha = dim(rho_alpha).
-
-  Proof via kernel trick: expand ||f_hat||^2 as a double sum, apply
-  column orthogonality of characters, collapse to L^2 norm.
-
-  Adapted from the RTSC Phase 3 proof (rtsc/lean/RtscPlancherel.lean).
-
   LH & Claude, 2026-05-10
 -/
 
@@ -25,7 +12,6 @@ namespace GSpacegroup.Plancherel
 
 open BigOperators Matrix
 
-/-- Unitary representation of a finite group on C^d. -/
 structure UnitaryRep (G : Type*) [Group G] [Fintype G] (d : ℕ) where
   mat       : G -> Matrix (Fin d) (Fin d) ℂ
   hom       : forall g h : G, mat (g * h) = mat g * mat h
@@ -56,34 +42,32 @@ lemma conjTranspose_eq_inv (g : G) : (rho.mat g)ᴴ = rho.mat g⁻¹ := by
 
 end UnitaryRep
 
-/-- Family of irreducible unitary representations. -/
 structure IrrepFamily (G : Type*) [Group G] [Fintype G] where
   Idx  : Type*
   dim  : Idx -> ℕ
   rep  : forall alpha : Idx, UnitaryRep G (dim alpha)
 
-/-- Frobenius squared norm of a matrix. -/
+variable {G : Type*} [Group G] [Fintype G]
+
 noncomputable def frobSq {n : ℕ} (A : Matrix (Fin n) (Fin n) ℂ) : ℝ :=
   ∑ i : Fin n, ∑ j : Fin n, Complex.normSq (A i j)
 
-/-- Group-Fourier coefficient of f at representation rho. -/
 noncomputable def fourierCoeff {d : ℕ} (rho : UnitaryRep G d)
     (f : G -> ℂ) : Matrix (Fin d) (Fin d) ℂ :=
   ∑ g : G, f g • (rho.mat g)ᴴ
 
-/-- L^2(G) squared norm. -/
-noncomputable def l2NormSq {G : Type*} [Fintype G] (f : G -> ℂ) : ℝ :=
+noncomputable def l2NormSq (f : G -> ℂ) : ℝ :=
   ∑ g : G, Complex.normSq (f g)
 
-/-- Column orthogonality of characters hypothesis. -/
-def ColumnOrthogonal {G : Type*} [Group G] [Fintype G] [DecidableEq G]
+variable [DecidableEq G]
+
+def ColumnOrthogonal
     (fam : IrrepFamily G) [Fintype fam.Idx] : Prop :=
   forall x : G,
     ∑ alpha : fam.Idx, (fam.dim alpha : ℂ) *
       ((fam.rep alpha).mat x).trace =
     if x = 1 then (Fintype.card G : ℂ) else 0
 
-/-- Frobenius^2 as a C-valued sum. -/
 lemma frobSq_eq_complex_sum {n : ℕ} (A : Matrix (Fin n) (Fin n) ℂ) :
     (frobSq A : ℂ) = ∑ i : Fin n, ∑ j : Fin n, A i j * star (A i j) := by
   unfold frobSq
@@ -92,7 +76,6 @@ lemma frobSq_eq_complex_sum {n : ℕ} (A : Matrix (Fin n) (Fin n) ℂ) :
   refine Finset.sum_congr rfl (fun j _ => ?_)
   rw [Complex.normSq_eq_conj_mul_self, RCLike.star_def, mul_comm]
 
-/-- L^2 norm^2 as a C-valued sum. -/
 lemma l2NormSq_eq_complex_sum (f : G -> ℂ) :
     (l2NormSq f : ℂ) = ∑ g : G, f g * star (f g) := by
   unfold l2NormSq
@@ -100,7 +83,6 @@ lemma l2NormSq_eq_complex_sum (f : G -> ℂ) :
   refine Finset.sum_congr rfl (fun g _ => ?_)
   rw [Complex.normSq_eq_conj_mul_self, RCLike.star_def, mul_comm]
 
-/-- Frobenius^2 equals trace of A * A^H. -/
 lemma frobSq_eq_trace_mul_conjTranspose {n : ℕ}
     (A : Matrix (Fin n) (Fin n) ℂ) :
     (frobSq A : ℂ) = (A * Aᴴ).trace := by
@@ -111,10 +93,6 @@ lemma frobSq_eq_trace_mul_conjTranspose {n : ℕ}
   refine Finset.sum_congr rfl (fun j _ => ?_)
   rw [Matrix.conjTranspose_apply]
 
-variable {G : Type*} [Group G] [Fintype G] [DecidableEq G]
-
-/-- Kernel form of ||f_hat(rho)||_F^2:
-    ||f_hat||_F^2 = sum_{g,h} f(g) * star(f(h)) * chi(g^{-1} h). -/
 lemma frobSq_fourierCoeff_kernel
     {d : ℕ} (rho : UnitaryRep G d) (f : G -> ℂ) :
     (frobSq (fourierCoeff rho f) : ℂ) =
@@ -133,12 +111,6 @@ lemma frobSq_fourierCoeff_kernel
       <- rho.hom g⁻¹ h]
   ring
 
-/-- **Plancherel identity from column orthogonality.**
-
-    sum_{alpha} d_alpha * ||f_hat(alpha)||_F^2 = |G| * ||f||_2^2
-
-    Proof: expand each ||f_hat||^2 via kernel form, push alpha sum
-    inside, apply column orthogonality to collapse to diagonal. -/
 theorem spectral_weights_sum
     (fam : IrrepFamily G) [Fintype fam.Idx]
     (hcol : ColumnOrthogonal fam)

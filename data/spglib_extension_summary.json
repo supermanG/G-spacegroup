@@ -1,0 +1,22 @@
+{
+  "total_structures": 9311,
+  "existing_coverage": 894,
+  "spglib_detected": 8417,
+  "spglib_failed": 0,
+  "total_coverage": 64129,
+  "point_group_distribution": {
+    "O": 1827,
+    "C2": 639,
+    "D4": 3459,
+    "D2": 421,
+    "C4": 213,
+    "T": 1016,
+    "D6": 420,
+    "D3": 624,
+    "C3": 303,
+    "C1": 378,
+    "C6": 11
+  },
+  "d4_total": 3459,
+  "d4_new": 3364
+}
