@@ -342,11 +342,24 @@ the identity because their E-type irreps are realified conjugate
 complex pairs. The correction does not affect the normalized spectral
 weights or $\chi_3$ recovery, since it cancels in the normalization.
 
-The coverage gap (894/9311 candidates) is a limitation: most
-Alexandria entries lack matching JARVIS jids in the dft\_3d cache.
-Applying spglib directly to compute spacegroup numbers from the
-atomic coordinates would extend coverage to approximately 5000
-materials.
+The initial coverage gap (894/9311 candidates) has been resolved
+by applying spglib directly to detect spacegroup numbers from the
+atomic coordinates. This extends coverage to 9311 materials (all
+valid structures), with D$_4$ materials expanding from 95 to 3459
+(a 36$\times$ increase). The expanded pool enables statistically
+robust analysis of cuprate-channel irrep weights.
+
+The near-zero B$_1$ weight across D$_4$ materials reflects a
+fundamental constraint: geometric bond-network observables are
+insensitive to $d_{x^2-y^2}$ symmetry in D$_4$ crystals because
+$C_4$ symmetry guarantees that any geometric function is invariant
+under the sign reversal of a B$_1$-symmetric strain. The $d_{x^2-y^2}$
+channel probes electronic anisotropy (Cu-O $\sigma$ bond character,
+Van Hove singularity structure), which requires electronic structure
+data beyond the geometric bond network. A complementary B$_1$ probe
+would use $d$-orbital projected density of states or electron-phonon
+coupling matrices, connecting this work to the TQC band representation
+framework~\cite{bradlyn2017tqc}.
 
 A natural connection exists with the Bilbao TQC
 catalog~\cite{bradlyn2017tqc}, which classifies band representations
@@ -364,10 +377,12 @@ symmetry than the scalar $\chi_3$ predictor, with concrete
 Tc-predictive information available in individual irrep channels.
 The Plancherel identity (with Frobenius-Schur correction) is verified
 both computationally (894 materials, all passing) and formally
-(Lean~4 proofs). The spacegroup fingerprint vector provides a
-natural feature set for v15+ superconductivity predictors, with
-the D$_4$ B$_2$ (cuprate $d_{xy}$) channel as the leading example
-of genuinely new information.
+(Lean~4 proofs). Application of spglib extends coverage to 9311
+materials (3459 D$_4$). The D$_4$ B$_2$ ($d_{xy}$) channel provides
+genuinely new Tc-predictive information ($r = 0.33$, 86\% residual
+variance), while the B$_1$ ($d_{x^2-y^2}$) channel is inaccessible
+to geometric observables, pointing to the need for electronic
+structure integration in future work.
 
 \begin{acknowledgments}
 We thank the JARVIS-DFT team for making their database publicly
