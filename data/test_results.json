@@ -1,0 +1,30 @@
+[
+  {
+    "jid": "JVASP-1014",
+    "formula": "",
+    "Tc": 7.639509141414565,
+    "spg": 229,
+    "pg": "O",
+    "fingerprint": {
+      "A1": 1.0,
+      "A2": 0.0,
+      "E": 3.4238754566884194e-33,
+      "T1": 0.0,
+      "T2": 0.0
+    },
+    "chi3_recovered": 3.4238754566884194e-33,
+    "feature_vector": [
+      1.0,
+      0.0,
+      3.4238754566884194e-33,
+      0.0,
+      0.0
+    ],
+    "feature_names": [
+      "sg_w_rho_A1",
+      "sg_w_rho_A2",
+      "sg_w_rho_E",
+      "sg_w_rho_T1",
+      "sg_w_rho_T2"
+    ],
+    "plancherel_ok": 

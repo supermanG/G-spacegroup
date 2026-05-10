@@ -16,3 +16,8 @@ data/irrep_tables/*.json
 *.swp
 *.swo
 *~
+lean/.lake/
+lake-packages/
+*.olean
+*.ilean
+*.trace

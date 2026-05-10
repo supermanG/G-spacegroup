@@ -27,33 +27,204 @@
 \maketitle
 
 %% ====================================================================
-\section{Irrep tables for the 11 proper point groups}
+\section{Character tables for the 11 proper point groups}
 \label{sec:irrep-tables}
 
-% TODO: character tables, dimensions, angular momentum labels
+The 11 proper (chiral) crystallographic point groups and their
+irreducible representations are listed below. Dimension $d$,
+angular momentum quantum number $\ell$, and Frobenius-Schur
+indicator $\nu$ are given for each irrep.
+
+\begin{table}[h]
+\caption{Irrep summary for proper crystallographic point groups.}
+\begin{ruledtabular}
+\begin{tabular}{llllll}
+Group & $|G|$ & Irreps & $d$ & $\ell$ & $\nu$ \\
+\midrule
+C$_1$ & 1  & A       & 1       & 0       & $+1$ \\
+\midrule
+C$_2$ & 2  & A       & 1       & 0       & $+1$ \\
+      &    & B       & 1       & 1       & $+1$ \\
+\midrule
+C$_3$ & 3  & A       & 1       & 0       & $+1$ \\
+      &    & E       & 2       & 1       & $0$  \\
+\midrule
+C$_4$ & 4  & A       & 1       & 0       & $+1$ \\
+      &    & B       & 1       & 2       & $+1$ \\
+      &    & E       & 2       & 1       & $0$  \\
+\midrule
+C$_6$ & 6  & A       & 1       & 0       & $+1$ \\
+      &    & B       & 1       & 3       & $+1$ \\
+      &    & E$_1$   & 2       & 1       & $0$  \\
+      &    & E$_2$   & 2       & 2       & $0$  \\
+\midrule
+D$_2$ & 4  & A       & 1       & 0       & $+1$ \\
+      &    & B$_1$   & 1       & 1       & $+1$ \\
+      &    & B$_2$   & 1       & 1       & $+1$ \\
+      &    & B$_3$   & 1       & 1       & $+1$ \\
+\midrule
+D$_3$ & 6  & A$_1$   & 1       & 0       & $+1$ \\
+      &    & A$_2$   & 1       & 1       & $+1$ \\
+      &    & E       & 2       & 1       & $+1$ \\
+\midrule
+D$_4$ & 8  & A$_1$   & 1       & 0       & $+1$ \\
+      &    & A$_2$   & 1       & 1       & $+1$ \\
+      &    & B$_1$   & 1       & 2       & $+1$ \\
+      &    & B$_2$   & 1       & 2       & $+1$ \\
+      &    & E       & 2       & 1       & $+1$ \\
+\midrule
+D$_6$ & 12 & A$_1$   & 1       & 0       & $+1$ \\
+      &    & A$_2$   & 1       & 1       & $+1$ \\
+      &    & B$_1$   & 1       & 3       & $+1$ \\
+      &    & B$_2$   & 1       & 3       & $+1$ \\
+      &    & E$_1$   & 2       & 1       & $+1$ \\
+      &    & E$_2$   & 2       & 2       & $+1$ \\
+\midrule
+T     & 12 & A       & 1       & 0       & $+1$ \\
+      &    & E       & 2       & 1       & $0$  \\
+      &    & T       & 3       & 1       & $+1$ \\
+\midrule
+O     & 24 & A$_1$   & 1       & 0       & $+1$ \\
+      &    & A$_2$   & 1       & 1       & $+1$ \\
+      &    & E       & 2       & 2       & $+1$ \\
+      &    & T$_1$   & 3       & 1       & $+1$ \\
+      &    & T$_2$   & 3       & 1       & $+1$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
 
 %% ====================================================================
 \section{Spacegroup to point group mapping}
 \label{sec:spg-mapping}
 
-% TODO: full 230 -> 11 mapping table
+Each of the 230 crystallographic spacegroups maps to one of 11
+proper point groups. The distribution is:
+
+\begin{table}[h]
+\caption{Spacegroup count per proper point group.}
+\begin{ruledtabular}
+\begin{tabular}{lrl}
+Point group & Count & Example spacegroups \\
+\midrule
+D$_2$ & 49 & 16--24 (orthorhombic) \\
+C$_2$ & 31 & 3--5 (monoclinic) \\
+D$_4$ & 30 & 89--98 (tetragonal) \\
+C$_4$ & 26 & 75--80 (tetragonal) \\
+T     & 18 & 195--199 (cubic) \\
+O     & 18 & 207--214 (cubic) \\
+D$_3$ & 17 & 149--155 (trigonal) \\
+C$_3$ & 13 & 143--146 (trigonal) \\
+C$_6$ & 12 & 168--173 (hexagonal) \\
+D$_6$ & 10 & 177--182 (hexagonal) \\
+C$_1$ &  6 & 1 (triclinic) \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
 
 %% ====================================================================
-\section{Complete spectroscopy results}
-\label{sec:full-results}
+\section{Cross-validation: full-spectrum $\chi_3$ vs.\ v14 z3}
+\label{sec:cross-validation}
 
-% TODO: spectral weights for all 894 materials
+We compared our fingerprint-derived $\chi_3$ (sum of non-trivial
+spectral weights from the full angular spectrum observable) against
+the v14 predictor's z3 (2D angular projection restricted to
+$\ZZ/3$) for 735 matched materials.
+
+\begin{table}[h]
+\caption{Per-point-group cross-validation statistics.}
+\begin{ruledtabular}
+\begin{tabular}{lrrrr}
+PG & $n$ & Mean diff. & Std diff. & Pearson $r$ \\
+\midrule
+C$_1$ &  11 & $-0.148$ & 0.172 & N/A \\
+C$_2$ &  26 & $-0.132$ & 0.221 & 0.245 \\
+C$_3$ &   3 & $-0.021$ & 0.151 & 0.930 \\
+C$_4$ &  62 & $-0.100$ & 0.287 & $-0.577$ \\
+C$_6$ &   1 & $-0.024$ & 0.000 & N/A \\
+D$_2$ &  59 & $-0.134$ & 0.275 & $-0.151$ \\
+D$_3$ &  50 & $+0.063$ & 0.268 & 0.385 \\
+D$_4$ &  78 & $-0.068$ & 0.219 & 0.260 \\
+D$_6$ &  99 & $+0.055$ & 0.293 & 0.196 \\
+T     &  33 & $+0.301$ & 0.193 & 0.915 \\
+O     & 313 & $+0.241$ & 0.216 & 0.943 \\
+\midrule
+All   & 735 & $+0.094$ & 0.287 & 0.626 \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+The moderate overall correlation ($r = 0.63$) is expected because the
+two quantities use different observables (3D bond geometry vs.\ 2D
+angular projection) and different group restrictions (full point group
+vs.\ $\ZZ/3$). The strong correlation within O and T groups reflects
+the fact that for these cubic groups, the $\ZZ/3$ cyclic subgroup
+captures a substantial portion of the full group structure.
 
 %% ====================================================================
 \section{Frobenius-Schur indicators}
 \label{sec:fs-indicators}
 
-% TODO: FS indicators for all irreps of all 11 groups
+The Frobenius-Schur indicator $\nu(\rho) = (1/|G|)\sum_g \chi(g^2)$
+classifies each irrep:
+
+\begin{itemize}
+  \item $\nu = +1$: real type (orthogonal). All 1D irreps of
+    crystallographic point groups, and all E-type irreps of D$_n$
+    and O groups.
+  \item $\nu = 0$: complex type (unitary, not self-conjugate). The
+    E-type irreps of C$_3$, C$_4$, C$_6$, and T.
+  \item $\nu = -1$: quaternionic type (symplectic). Does not occur
+    among the 11 proper crystallographic point groups.
+\end{itemize}
+
+For the Plancherel identity with real matrix representations, the
+Frobenius-Schur correction multiplies the spectral contribution of
+complex-type irreps by $1/2$. This correction is necessary because
+the realification of a conjugate pair of complex 1D irreps produces
+a 2D real matrix whose Frobenius norm counts each degree of freedom
+twice.
+
+Groups requiring the correction: C$_3$ (E irrep), C$_4$ (E irrep),
+C$_6$ (E$_1$ and E$_2$ irreps), and T (E irrep). The correction does
+not affect the normalized spectral weights or $\chi_3$ values, since
+the factor cancels in the ratio~(Eq.~3 of the main text).
 
 %% ====================================================================
 \section{Lean 4 proof listing}
 \label{sec:lean-proofs}
 
-% TODO: annotated Lean 4 proof source
+The formal verification comprises four Lean~4 modules:
+
+\begin{enumerate}
+  \item \texttt{Plancherel.lean}: Plancherel identity from column
+    orthogonality via the kernel trick. Defines \texttt{UnitaryRep},
+    \texttt{IrrepFamily}, \texttt{frobSq}, \texttt{fourierCoeff},
+    and proves \texttt{spectral\_weights\_sum} by expanding the
+    Frobenius norm as a double sum, rearranging to put the irrep
+    index innermost, applying column orthogonality, and collapsing
+    to the $L^2$ norm.
+
+  \item \texttt{SpectralWeights.lean}: Normalization theorems.
+    Proves \texttt{normalized\_sum\_eq\_one} (weights sum to 1),
+    \texttt{normalized\_nonneg} (each weight $\ge 0$),
+    \texttt{normalized\_le\_one} (each weight $\le 1$), and
+    the combined \texttt{spectral\_fingerprint\_is\_probability}.
+
+  \item \texttt{FrobeniusSchur.lean}: FS indicator definition and
+    correction factors. Proves \texttt{correction\_real\_type}
+    ($c = 1$ for $\nu = 1$) and \texttt{correction\_complex\_type}
+    ($c = 1/2$ for $\nu = 0$). The boundedness theorem
+    (\texttt{fsIndicator\_bounded}) is stated but left for
+    future formalization, as it requires Schur orthogonality
+    in its full generality.
+
+  \item \texttt{Chi3Reduction.lean}: $\chi_3$ as complement of
+    trivial weight sum. Proves \texttt{chi3\_complement} and
+    \texttt{chi3\_determined\_by\_fingerprint}. The strict
+    refinement existence theorem is stated constructively.
+\end{enumerate}
+
+All proofs are available in the \texttt{lean/GSpacegroup/} directory
+of the accompanying repository.
 
 \end{document}
